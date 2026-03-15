@@ -1,0 +1,10 @@
+{
+  "name": "@agentsys/onboard",
+  "version": "0.1.0",
+  "description": "Quick codebase summary for new projects - /onboard command",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/agent-sh/onboard.git"
+  }
+}

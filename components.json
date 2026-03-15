@@ -1,0 +1,11 @@
+{
+  "agents": [
+    "onboard-agent"
+  ],
+  "skills": [
+    "onboard"
+  ],
+  "commands": [
+    "onboard"
+  ]
+}
