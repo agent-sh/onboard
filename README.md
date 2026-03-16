@@ -40,7 +40,7 @@ Pure JavaScript collector gathers everything an agent needs to orient:
 | Manifest | package.json, Cargo.toml, go.mod, pyproject.toml, deno.json, CMakeLists.txt, meson.build, setup.py, pom.xml, build.gradle |
 | Structure | 3-level directory tree (excluding build artifacts) |
 | README | First 5KB of README content |
-| CLAUDE.md | Project rules and conventions |
+| CLAUDE.md / AGENTS.md | Project rules and conventions |
 | CI/CD | GitHub Actions workflows, Dockerfile presence |
 | Git | Branch, commit count, remote URL |
 | Repo-intel | Hotspots, ownership, areas, health (if [agent-analyzer](https://github.com/agent-sh/agent-analyzer) available) |
@@ -53,7 +53,7 @@ No LLM tokens are spent on collection. The agent receives pre-structured data an
 | Level | Time | What's included |
 |-------|------|-----------------|
 | `quick` | ~2s | Manifest + README + structure + git |
-| `normal` | ~5s | + CLAUDE.md + CI + repo-intel (default) |
+| `normal` | ~5s | + CLAUDE.md/AGENTS.md + CI + repo-intel (default) |
 | `deep` | ~15s | + repo-map AST symbols |
 
 ```
