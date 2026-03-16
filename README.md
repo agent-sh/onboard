@@ -1,0 +1,94 @@
+# onboard
+
+Codebase onboarding for AI agents - automated data collection and interactive project orientation.
+
+Part of the [agentsys](https://github.com/agent-sh/agentsys) ecosystem.
+
+Drop into any unfamiliar codebase and get oriented in under 3 minutes. The collector gathers project metadata automatically (no LLM calls), then an Opus agent synthesizes it into a guided tour and answers follow-up questions interactively.
+
+## Why this plugin
+
+- Use this when joining a new project and need to understand tech stack, structure, and active development areas
+- Use this when context-switching between repos and need a quick refresher
+- Use this when reviewing a PR in an unfamiliar part of the codebase
+- Use this before planning implementation to understand existing patterns and entry points
+
+## Installation
+
+```bash
+agentsys install onboard
+```
+
+## Quick start
+
+```
+/onboard
+```
+
+Three phases run in sequence:
+
+1. **Collect** (automatic, no LLM) - scans manifest, directory structure, README, CI config, git info, repo-intel data
+2. **Synthesize** (Opus agent) - produces a 2-3 minute summary covering tech stack, key files, architecture, active areas
+3. **Guide** (interactive) - answers follow-up questions, reads specific files, explains patterns
+
+## Data collection
+
+Pure JavaScript collector gathers everything an agent needs to orient:
+
+| Data Source | What it captures |
+|-------------|------------------|
+| Manifest | package.json, Cargo.toml, go.mod, pyproject.toml, pom.xml, build.gradle |
+| Structure | 3-level directory tree (excluding build artifacts) |
+| README | First 5KB of README content |
+| CLAUDE.md | Project rules and conventions |
+| CI/CD | GitHub Actions workflows, Dockerfile presence |
+| Git | Branch, commit count, remote URL |
+| Repo-intel | Hotspots, ownership, areas, health (if [agent-analyzer](https://github.com/agent-sh/agent-analyzer) available) |
+| Repo-map | AST symbols and imports (if available) |
+
+No LLM tokens are spent on collection. The agent receives pre-structured data and focuses on synthesis and guidance.
+
+## Depth levels
+
+| Level | Time | What's included |
+|-------|------|-----------------|
+| `quick` | ~2s | Manifest + README + structure + git |
+| `normal` | ~5s | + CLAUDE.md + CI + repo-intel (default) |
+| `deep` | ~15s | + repo-map AST symbols |
+
+```
+/onboard --depth=deep
+/onboard /path/to/repo
+```
+
+## What the agent produces
+
+The Opus agent synthesizes collected data into:
+
+- **Tech stack** - languages, frameworks, dependencies with versions
+- **Project structure** - what each directory does, where the main code lives
+- **Entry points** - where to start reading, main modules, CLI entry
+- **Active areas** - from hotspot data, where development is concentrated
+- **Testing patterns** - test framework, test file conventions, coverage signals
+- **Conventions** - commit style, naming patterns, project-specific rules
+
+After the summary, the agent stays in conversation to answer follow-up questions, read specific files, and guide you to the right place for what you want to do.
+
+## Supported languages
+
+Detects and adapts to: JavaScript/TypeScript, Rust, Go, Python, Java, C/C++, Ruby, PHP, Swift, Kotlin, Scala, Elixir, Haskell, C#, Dart, Zig.
+
+## Requirements
+
+- Git repository (recommended but not required)
+- [agent-analyzer](https://github.com/agent-sh/agent-analyzer) for repo-intel data (optional - prompts to generate if missing)
+
+## Related plugins
+
+- [can-i-help](https://github.com/agent-sh/can-i-help) - find where to contribute (built on top of onboard data)
+- [git-map](https://github.com/agent-sh/git-map) - git history analysis (data source for hotspots and ownership)
+- [repo-map](https://github.com/agent-sh/repo-map) - AST symbol map (deeper code understanding)
+
+## License
+
+MIT
