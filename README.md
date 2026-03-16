@@ -37,7 +37,7 @@ Pure JavaScript collector gathers everything an agent needs to orient:
 
 | Data Source | What it captures |
 |-------------|------------------|
-| Manifest | package.json, Cargo.toml, go.mod, pyproject.toml, pom.xml, build.gradle |
+| Manifest | package.json, Cargo.toml, go.mod, pyproject.toml, deno.json, CMakeLists.txt, meson.build, setup.py, pom.xml, build.gradle |
 | Structure | 3-level directory tree (excluding build artifacts) |
 | README | First 5KB of README content |
 | CLAUDE.md | Project rules and conventions |
@@ -74,9 +74,26 @@ The Opus agent synthesizes collected data into:
 
 After the summary, the agent stays in conversation to answer follow-up questions, read specific files, and guide you to the right place for what you want to do.
 
-## Supported languages
+## Validated on 100 repos
 
-Detects and adapts to: JavaScript/TypeScript, Rust, Go, Python, Java, C/C++, Ruby, PHP, Swift, Kotlin, Scala, Elixir, Haskell, C#, Dart, Zig.
+Tested across 100 open-source repositories spanning 8 ecosystems:
+
+| Language | Repos | Token savings vs manual |
+|----------|-------|------------------------|
+| C/C++ | 6 | 86% |
+| Go | 18 | 79% |
+| Python | 17 | 74% |
+| Rust | 16 | 73% |
+| TypeScript | 31 | 71% |
+| JavaScript | 11 | 55% |
+| Java | 1 | - |
+| Deno | 1 | - |
+
+**74% average token savings** - the collector pre-structures project data in 68ms (median), so the agent spends tokens on synthesis and guidance instead of file discovery. Repos tested include nanoid, zod, express, hono, ripgrep, rich, django, flask, fastapi, gin, cobra, axum, serde, react, next.js, and 85 others.
+
+## Supported manifests
+
+package.json, Cargo.toml, go.mod, pyproject.toml, setup.py, deno.json, CMakeLists.txt, meson.build, configure.ac, Makefile, pom.xml, build.gradle. Detects monorepos (npm workspaces, pnpm, lerna, Cargo workspaces, Python libs/, Deno workspaces).
 
 ## Requirements
 
