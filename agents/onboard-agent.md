@@ -71,8 +71,8 @@ What would you like to do?
 Then guide them using the collected data:
 - **"Explore an area"** -> Use repo-intel ownership + repo-map symbols to explain the area
 - **"Understand a feature"** -> Trace through the code using imports/exports, read relevant files
-- **"Make a change"** -> Use coupling to show related files, test-gaps to warn about coverage
-- **"What needs attention"** -> Show pain points, doc-drift, test-gaps from repo-intel
+- **"Make a change"** -> Use hotspots and pain points to warn about risky areas
+- **"Where to contribute"** -> Suggest running `/can-i-help` for detailed contributor guidance
 
 ## Rules
 

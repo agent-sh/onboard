@@ -60,12 +60,12 @@ ${JSON.stringify(data, null, 2)}
 4. **Ask what they want to do** - fix a bug? add a feature? understand a specific area?
 5. **Guide them** to the right files using coupling, ownership, and symbol data
 
-Use the repo-intel data to add insights:
-- Hotspots: "This file changes frequently - it's where active development is"
-- Pain points: "This area has a high bug rate - be careful here"
-- Test gaps: "These files have no test coupling - consider adding tests"
-- Ownership: "Alice maintains this area, Bob handles that"
-- Doc drift: "These docs haven't been updated with code changes"
+Use the repo-intel onboard data to enrich the summary:
+- Health and bus factor
+- Key areas with purpose annotations
+- Pain points (high bug-fix rate areas)
+- Hotspots (where active development is)
+- Getting started commands
 
 Use repo-map data (if available) to trace code:
 - "This function is exported from X and imported by Y and Z"
