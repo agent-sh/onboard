@@ -7,7 +7,7 @@ tools:
   - Grep
   - Bash(git:*)
   - AskUserQuestion
-model: opus
+model: sonnet
 ---
 
 # Onboard Agent
