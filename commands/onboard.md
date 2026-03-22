@@ -67,6 +67,17 @@ Use the repo-intel onboard data to enrich the summary:
 - Hotspots (where active development is)
 - Getting started commands
 
+Use conventions data (if available) to describe coding style:
+- Function naming convention (snake_case, camelCase, PascalCase)
+- Test framework and test location pattern
+- Commit message convention (conventional, freeform)
+
+Use project metadata (if available) for quick facts:
+- Primary language and language breakdown
+- CI provider and workflow count
+- License type
+- Package manager
+
 Use repo-map data (if available) to trace code:
 - "This function is exported from X and imported by Y and Z"
 - "The main entry point calls these modules in this order"
