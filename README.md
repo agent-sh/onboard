@@ -4,7 +4,7 @@ Codebase onboarding for AI agents - automated data collection and interactive pr
 
 Part of the [agentsys](https://github.com/agent-sh/agentsys) ecosystem.
 
-Drop into any unfamiliar codebase and get oriented in under 3 minutes. The collector gathers project metadata automatically (no LLM calls), then an Opus agent synthesizes it into a guided tour and answers follow-up questions interactively.
+Drop into any unfamiliar codebase and get oriented in under 3 minutes. The collector gathers project metadata automatically (no LLM calls), then a Sonnet agent synthesizes it into a guided tour and answers follow-up questions interactively.
 
 ## Why this plugin
 
@@ -28,7 +28,7 @@ agentsys install onboard
 Three phases run in sequence:
 
 1. **Collect** (automatic, no LLM) - scans manifest, directory structure, README, CI config, git info, repo-intel data
-2. **Synthesize** (Opus agent) - produces a 2-3 minute summary covering tech stack, key files, architecture, active areas
+2. **Synthesize** (Sonnet agent) - produces a 2-3 minute summary covering tech stack, key files, architecture, active areas
 3. **Guide** (interactive) - answers follow-up questions, reads specific files, explains patterns
 
 ## Data collection
@@ -43,8 +43,7 @@ Pure JavaScript collector gathers everything an agent needs to orient:
 | CLAUDE.md / AGENTS.md | Project rules and conventions |
 | CI/CD | GitHub Actions workflows, Dockerfile presence |
 | Git | Branch, commit count, remote URL |
-| Repo-intel | Hotspots, ownership, areas, health (if [agent-analyzer](https://github.com/agent-sh/agent-analyzer) available) |
-| Repo-map | AST symbols and imports (if available) |
+| Repo-intel | Hotspots, ownership, areas, health, AST symbols (if [agent-analyzer](https://github.com/agent-sh/agent-analyzer) available) |
 
 No LLM tokens are spent on collection. The agent receives pre-structured data and focuses on synthesis and guidance.
 
@@ -54,7 +53,7 @@ No LLM tokens are spent on collection. The agent receives pre-structured data an
 |-------|------|-----------------|
 | `quick` | ~2s | Manifest + README + structure + git |
 | `normal` | ~5s | + CLAUDE.md/AGENTS.md + CI + repo-intel (default) |
-| `deep` | ~15s | + repo-map AST symbols |
+| `deep` | ~15s | + AST symbols |
 
 ```
 /onboard --depth=deep
@@ -63,7 +62,7 @@ No LLM tokens are spent on collection. The agent receives pre-structured data an
 
 ## What the agent produces
 
-The Opus agent synthesizes collected data into:
+The Sonnet agent synthesizes collected data into:
 
 - **Tech stack** - languages, frameworks, dependencies with versions
 - **Project structure** - what each directory does, where the main code lives
@@ -103,8 +102,7 @@ package.json, Cargo.toml, go.mod, pyproject.toml, setup.py, deno.json, CMakeList
 ## Related plugins
 
 - [can-i-help](https://github.com/agent-sh/can-i-help) - find where to contribute (built on top of onboard data)
-- [git-map](https://github.com/agent-sh/git-map) - git history analysis (data source for hotspots and ownership)
-- [repo-map](https://github.com/agent-sh/repo-map) - AST symbol map (deeper code understanding)
+- [repo-intel](https://github.com/agent-sh/repo-intel) - unified static analysis (git history, AST symbols, project metadata)
 
 ## License
 
