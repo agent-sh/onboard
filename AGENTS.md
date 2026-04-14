@@ -4,7 +4,7 @@
 
 ## Agents
 
-- onboard-agent (opus) - codebase orientation and guided tour
+- onboard-agent (Sonnet) - codebase orientation and guided tour
 
 ## Skills
 

@@ -22,7 +22,7 @@ Automated data collection + LLM synthesis + interactive guidance.
   │   ├─ getRepoIntel()    → onboard query, hotspots
   │   └─ getRepoMap()      → symbols, imports, exports (if available)
   │
-  ├─ Phase 2: onboard-agent (Opus)
+  ├─ Phase 2: onboard-agent (Sonnet)
   │   ├─ Synthesize collected data into readable summary
   │   ├─ Read key source files for architecture understanding
   │   └─ Present summary to user
