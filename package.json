@@ -6,5 +6,8 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/agent-sh/onboard.git"
+  },
+  "scripts": {
+    "test": "node --test tests/**/*.test.js"
   }
 }
