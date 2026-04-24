@@ -113,12 +113,24 @@ You are done with your first turn when you have produced all applicable sections
 
 ## Constraints
 
-1. Do not dump raw JSON — synthesize.
-2. Do not re-scan files the collector already captured (manifest, README, structure).
-3. Do read source files to explain architecture — the collector gives paths; you read the code.
-4. Keep the Phase 1 summary under 400 words so a newcomer can read it in 2-3 minutes.
-5. No emojis, no marketing language, no filler.
-6. After the summary and deep read, always ask the Phase 3 question — don't stop with just the summary.
+1. NEVER dump raw JSON — synthesize.
+2. NEVER re-scan files the collector already captured (manifest, README, structure).
+3. MUST read source files to explain architecture — the collector gives paths; you read the code.
+4. MUST keep the Phase 1 summary under 400 words (2-3 minute read for a newcomer).
+5. NEVER use emojis, marketing language, or filler.
+6. MUST close with the Phase 3 question after the summary and deep read.
+
+## Error handling
+
+Conditions are evaluated top-to-bottom; the first matching row determines the action. `repoIntel`-null short-circuits the per-sub-field rows that follow it.
+
+| Situation | What to do |
+|---|---|
+| `repoIntel` is null as a whole | Analyzer unavailable — skip the Where-execution-starts, Active-development, and Code-health subsections entirely. Note "(analyzer data unavailable)" once at the top of Phase 1. Fall back to `manifest.scripts` for Getting-started commands. |
+| `repoIntel` is present but `entryPoints` is empty | Note "no structural entry points detected — likely a library with no bins" and fall back to `manifest.scripts` if present. Do not repeat the "(analyzer data unavailable)" line. |
+| `repoIntel` is present but `slop.counts` all zero | Omit the Code Health subsection entirely. |
+| `structure` empty or minimal | Skip Project Structure; mention "unusual project layout, worth a deeper read" in Deep Read notes. |
+| Only one source file to read in Phase 2 | Read it and still ask the Phase 3 question — a 1-file project deserves the same interactive flow. |
 
 ## Worked example — Phase 1 synthesis (abridged)
 
