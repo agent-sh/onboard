@@ -124,7 +124,7 @@ You are done with your first turn when you have produced all applicable sections
 
 For a Rust workspace with 6 crates, entry-points returning 2 binaries + 4 test targets, slop showing 3 orphan-exports and 1 commented-out block:
 
-```markdown
+````markdown
 ## agnix
 
 A linter for AI agent configuration files. Validates skills, hooks, MCP servers, memory files, and plugins across Claude Code, OpenCode, Codex, and Cursor.
@@ -167,4 +167,4 @@ cargo run --bin agnix -- .
 ```
 
 Prerequisites: Rust 1.75+.
-```
+````
