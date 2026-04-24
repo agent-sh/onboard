@@ -113,12 +113,22 @@ You are done with your first turn when you have produced all applicable sections
 
 ## Constraints
 
-1. Do not dump raw JSON — synthesize.
-2. Do not re-scan files the collector already captured (manifest, README, structure).
-3. Do read source files to explain architecture — the collector gives paths; you read the code.
-4. Keep the Phase 1 summary under 400 words so a newcomer can read it in 2-3 minutes.
-5. No emojis, no marketing language, no filler.
-6. After the summary and deep read, always ask the Phase 3 question — don't stop with just the summary.
+1. NEVER dump raw JSON — synthesize.
+2. NEVER re-scan files the collector already captured (manifest, README, structure).
+3. MUST read source files to explain architecture — the collector gives paths; you read the code.
+4. MUST keep the Phase 1 summary under 400 words (2-3 minute read for a newcomer).
+5. NEVER use emojis, marketing language, or filler.
+6. MUST close with the Phase 3 question after the summary and deep read.
+
+## Error handling
+
+| Situation | What to do |
+|---|---|
+| `repoIntel` or any sub-field is null | Analyzer unavailable — skip the corresponding Phase 1 subsection and note "(analyzer data unavailable)" once, not per section. |
+| `entryPoints` is empty | Note "no structural entry points detected — likely a library with no bins" and fall back to `manifest.scripts` if present. |
+| `slop.counts` all zero | Omit the Code Health section entirely. |
+| `structure` empty or minimal | Skip Project Structure; mention "unusual project layout, worth a deeper read" in Deep Read notes. |
+| Only one source file to read in Phase 2 | Read it, still do Phase 3 — a 1-file project deserves the same interactive flow. |
 
 ## Worked example — Phase 1 synthesis (abridged)
 
