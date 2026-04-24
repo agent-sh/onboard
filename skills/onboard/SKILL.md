@@ -19,7 +19,8 @@ Automated data collection + LLM synthesis + interactive guidance.
   │   ├─ readFileIfExists()→ README.md, CLAUDE.md
   │   ├─ scanCI()          → .github/workflows, Dockerfile
   │   ├─ getGitInfo()      → branch, commit count, remote
-  │   ├─ getRepoIntel()    → onboard query, hotspots
+  │   ├─ getRepoIntel()    → onboard + hotspots + conventions +
+  │   │                       projectInfo + entry-points + slop
   │   └─ getRepoMap()      → symbols, imports, exports (if available)
   │
   ├─ Phase 2: onboard-agent (Sonnet)
@@ -55,7 +56,15 @@ The collector produces a single JSON object:
   "gitInfo": { "branch": "main", "commitCount": 232, "lastCommit": "2026-03-15", "remoteUrl": "..." },
   "repoIntel": {
     "onboard": { "language": "typescript", "structure": "single package", "health": "active", ... },
-    "hotspots": [...]
+    "hotspots": [...],
+    "conventions": { "commit": "conventional", ... },
+    "projectInfo": { "readme": {...}, "manifest": {...} },
+    "entryPoints": [{ "path": "src/main.rs", "name": "main", "kind": "main" }, ...],
+    "slop": {
+      "orphanExports": [...], "passthroughWrappers": [...],
+      "alwaysTrueConditions": [...], "commentedOutCode": [...],
+      "counts": { "orphanExports": 3, "passthroughWrappers": 0, "alwaysTrueConditions": 0, "commentedOutCode": 1 }
+    }
   },
   "repoMap": { "totalFiles": 45, "totalSymbols": 312, "keyExports": { "src/index.ts": ["Queue", "Worker", ...] } }
 }
