@@ -122,13 +122,15 @@ You are done with your first turn when you have produced all applicable sections
 
 ## Error handling
 
+Conditions are evaluated top-to-bottom; the first matching row determines the action. `repoIntel`-null short-circuits the per-sub-field rows that follow it.
+
 | Situation | What to do |
 |---|---|
-| `repoIntel` or any sub-field is null | Analyzer unavailable — skip the corresponding Phase 1 subsection and note "(analyzer data unavailable)" once, not per section. |
-| `entryPoints` is empty | Note "no structural entry points detected — likely a library with no bins" and fall back to `manifest.scripts` if present. |
-| `slop.counts` all zero | Omit the Code Health section entirely. |
+| `repoIntel` is null as a whole | Analyzer unavailable — skip the Where-execution-starts, Active-development, and Code-health subsections entirely. Note "(analyzer data unavailable)" once at the top of Phase 1. Fall back to `manifest.scripts` for Getting-started commands. |
+| `repoIntel` is present but `entryPoints` is empty | Note "no structural entry points detected — likely a library with no bins" and fall back to `manifest.scripts` if present. Do not repeat the "(analyzer data unavailable)" line. |
+| `repoIntel` is present but `slop.counts` all zero | Omit the Code Health subsection entirely. |
 | `structure` empty or minimal | Skip Project Structure; mention "unusual project layout, worth a deeper read" in Deep Read notes. |
-| Only one source file to read in Phase 2 | Read it, still do Phase 3 — a 1-file project deserves the same interactive flow. |
+| Only one source file to read in Phase 2 | Read it and still ask the Phase 3 question — a 1-file project deserves the same interactive flow. |
 
 ## Worked example — Phase 1 synthesis (abridged)
 
