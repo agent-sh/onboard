@@ -22,8 +22,8 @@ Parse from `$ARGUMENTS`:
 ## Phase 1: Automated Data Collection (Pure JS)
 
 ```javascript
-const { getPluginRoot } = require('@agentsys/lib/cross-platform');
-const pluginRoot = getPluginRoot('onboard');
+const pluginRoot = process.env.CLAUDE_PLUGIN_ROOT;
+if (!pluginRoot) { console.error('Error: CLAUDE_PLUGIN_ROOT not set'); process.exit(1); }
 const collector = require(`${pluginRoot}/lib/collector`);
 
 const args = '$ARGUMENTS'.split(' ').filter(Boolean);

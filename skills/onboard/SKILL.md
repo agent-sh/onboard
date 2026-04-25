@@ -71,3 +71,13 @@ The collector produces a single JSON object:
 ```
 
 This is passed as the agent's prompt context. The agent reads key files to fill gaps, then presents a synthesized summary. No data collection happens in the LLM - only synthesis and guidance.
+
+
+## Repo-Intel Data
+
+**Expected:** the orchestrator (the command that spawned this agent) has already checked `<stateDir>/repo-intel.json` and either pre-fetched the data into your context or skipped (user declined to generate). **Do not call `AskUserQuestion` here** - subagents cannot interact with the user.
+
+**If the pre-fetched data is empty**, proceed with the available context. The orchestrator has already made the decision on the user's behalf.
+
+**Binary:** `agent-analyzer` auto-downloads to `~/.agent-sh/bin/` from `agent-sh/agent-analyzer` GitHub releases (~10 MB) on first use. The `lib/agentsys` resolver locates the agentsys install (CC marketplace clone, npm global, or sibling repo).
+
