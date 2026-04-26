@@ -7,8 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-04-26
+
 ### Changed
 
+- lib/collector.js execGit takes explicit argv arrays instead of args.split(' ') on hard-coded strings. Safer footgun elimination.
 - Switch onboard-agent from Opus to Sonnet - 73% cost reduction with equivalent output quality
 
 ### Added
