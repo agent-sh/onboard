@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-09-24
+
+### Changed
+
+- Rewrote the command, agent and skill for current models: goal, constraints with reasons, done criteria and the output contract, without step scripts, all-caps rules, a word cap or a long worked example.
+- Collection runs as `scripts/collect.js` and writes `<stateDir>/onboard-data.json`; the agent reads that file.
+
+### Fixed
+
+- The command's collection was JavaScript inside markdown with no `node` in allowed tools, so it could not run as written. It is a script now, with tests, and rejects unknown flags and depths.
+- `--depth=deep` never returned repo-map data when `repo-map.json` existed: the collector expected `symbols` as a flat array, while agentsys writes `{ exports, functions, classes, types, constants }`. The summary threw, the catch returned null, and the repo-intel fallback was skipped. Both shapes are read now.
+- The agent was told to use bugspots and ownership data the collector never gathers. The prompt lists only the keys that exist.
+- Docs said CI detection starts at `normal` depth and that the user is asked before the repo-intel map is generated. CI is collected at every depth and the map is built without asking; the docs say so.
+
 ## [0.1.1] - 2026-04-26
 
 ### Changed

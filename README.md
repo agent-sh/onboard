@@ -27,7 +27,7 @@ agentsys install onboard
 
 Three phases run in sequence:
 
-1. **Collect** (automatic, no LLM) - scans manifest, directory structure, README, CI config, git info, repo-intel data
+1. **Collect** (`scripts/collect.js`, no LLM) - scans manifest, directory structure, README, CI config, git info and repo-intel data into one JSON file
 2. **Synthesize** (Sonnet agent) - produces a 2-3 minute summary covering tech stack, key files, architecture, active areas
 3. **Guide** (interactive) - answers follow-up questions, reads specific files, explains patterns
 
@@ -43,7 +43,8 @@ Pure JavaScript collector gathers everything an agent needs to orient:
 | CLAUDE.md / AGENTS.md | Project rules and conventions |
 | CI/CD | GitHub Actions workflows, Dockerfile presence |
 | Git | Branch, commit count, remote URL |
-| Repo-intel | Hotspots, ownership, areas, health, AST symbols (if [agent-analyzer](https://github.com/agent-sh/agent-analyzer) available) |
+| Repo-intel | Orientation summary, hotspots, conventions, project info, entry points, slop counts (if [agent-analyzer](https://github.com/agent-sh/agent-analyzer) is available) |
+| Repo-map | Symbol totals and key exports per file (`--depth=deep`) |
 
 No LLM tokens are spent on collection. The agent receives pre-structured data and focuses on synthesis and guidance.
 
@@ -51,9 +52,9 @@ No LLM tokens are spent on collection. The agent receives pre-structured data an
 
 | Level | Time | What's included |
 |-------|------|-----------------|
-| `quick` | ~2s | Manifest + README + structure + git |
-| `normal` | ~5s | + CLAUDE.md/AGENTS.md + CI + repo-intel (default) |
-| `deep` | ~15s | + AST symbols |
+| `quick` | ~2s | Manifest + README + structure + git + CI |
+| `normal` | ~5s | + CLAUDE.md/AGENTS.md + repo-intel (default) |
+| `deep` | ~15s | + repo-map symbols and key exports |
 
 ```
 /onboard --depth=deep
@@ -97,7 +98,8 @@ package.json, Cargo.toml, go.mod, pyproject.toml, setup.py, deno.json, CMakeList
 ## Requirements
 
 - Git repository (recommended but not required)
-- [agent-analyzer](https://github.com/agent-sh/agent-analyzer) for repo-intel data (optional - prompts to generate if missing)
+- [agent-analyzer](https://github.com/agent-sh/agent-analyzer) for repo-intel data (optional; the collector builds the map when it is missing)
+- Node.js, to run the collector script
 
 ## Related plugins
 
